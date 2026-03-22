@@ -1,28 +1,7 @@
-# Ignore OS-specific files
 .DS_Store
-
-# Ignore Vim & Neovim temp files
 *.swp
 *.swo
-*.swn
-*.bak
-*.tmp
-
-# Ignore logs & cache
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Ignore compiled files
-*.o
-*.out
-*.exe
-
-# Ignore local user configs
-.zsh_history
-.tmux.conf.local
-nvim/.local/
-nvim/.cache/
-
+*.local
+*.local.md
+.zshrc.local
+.gitconfig.local
