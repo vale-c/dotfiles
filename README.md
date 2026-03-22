@@ -71,7 +71,7 @@ Requires logout to take full effect.
 
 Two `.local` files are gitignored and never overwritten:
 
-- **`~/.zshrc.local`** — extra aliases, PATH entries, env vars (e.g., `CLAUDE_CODE_MAX_OUTPUT_TOKENS`)
+- **`~/.zshrc.local`** — extra aliases, PATH entries, env vars
 - **`~/.gitconfig.local`** — your name, email, GPG signing key
 
 ### Swap the Ghostty shader
