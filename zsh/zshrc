@@ -6,10 +6,7 @@
 # ─── Performance: Profiling (uncomment both lines to measure) ────────────────
 # zmodload zsh/zprof
 
-# ─── Instant Prompt: Starship (show prompt before plugins load) ──────────────
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/starship/init.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/starship/init.zsh"
-fi
+# ─── Starship Prompt (initialized at end of file) ─────────────────────────────
 
 # ─── Core Options ────────────────────────────────────────────────────────────
 setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
@@ -54,9 +51,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice wait lucid
 zinit light MichaelAquilina/zsh-you-should-use
 
-# Git aliases (just the aliases, not all of oh-my-zsh)
-zinit ice wait lucid
-zinit snippet OMZP::git
+# Note: git aliases defined manually below — no OMZP::git needed
 
 # ─── Completion System ───────────────────────────────────────────────────────
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'

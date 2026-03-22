@@ -64,7 +64,7 @@ ignore_submodules = true
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "overlay0"
 
-# ─── Node.js (disabled - fnm handles it) ─────────────────────────────────────
+# ─── Node.js (disabled - mise handles it) ─────────────────────────────────────
 [nodejs]
 disabled = true
 
