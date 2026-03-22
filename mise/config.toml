@@ -1,0 +1,13 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Mise — Universal Version Manager
+#  Replaces: fnm, nvm, rbenv, pyenv
+#  Docs: https://mise.jdx.dev
+# ══════════════════════════════════════════════════════════════════════════════
+
+[tools]
+node = "lts"
+python = "latest"
+# ruby = "latest"
+# go = "latest"
+# bun = "latest"
+# deno = "latest"

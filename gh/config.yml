@@ -1,0 +1,13 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  GitHub CLI Configuration
+# ══════════════════════════════════════════════════════════════════════════════
+
+aliases:
+  co: pr checkout
+  mine: pr list --author=@me
+  rv: pr list --search "review-requested:@me"
+  dash: repo view --web
+  prc: pr create --web
+  prv: pr view --web
+  runs: run list --limit 5
+  last-run: run view --log
