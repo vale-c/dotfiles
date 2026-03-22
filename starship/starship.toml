@@ -1,0 +1,131 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Starship Prompt — Catppuccin Mocha Edition
+#  Target: <50ms render time
+# ══════════════════════════════════════════════════════════════════════════════
+
+palette = "catppuccin_mocha"
+
+command_timeout = 1000
+add_newline = true
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = """$python$rust"""
+
+# ─── Character ───────────────────────────────────────────────────────────────
+[character]
+success_symbol = "[❯](bold mauve)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# ─── Directory ───────────────────────────────────────────────────────────────
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+style = "bold sapphire"
+read_only = " "
+
+[directory.substitutions]
+"Documents" = "docs"
+"Downloads" = "dl"
+"Desktop/CODING" = "code"
+
+# ─── Git Branch ──────────────────────────────────────────────────────────────
+[git_branch]
+format = "[$symbol$branch]($style) "
+symbol = " "
+style = "bold mauve"
+truncation_length = 24
+
+# ─── Git Status (simplified for speed) ───────────────────────────────────────
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold maroon"
+conflicted = "="
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+untracked = "?"
+stashed = "*"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "x"
+ignore_submodules = true
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "overlay0"
+
+# ─── Node.js (disabled - fnm handles it) ─────────────────────────────────────
+[nodejs]
+disabled = true
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+[python]
+format = '[${symbol}${version}]($style) '
+symbol = " "
+style = "yellow"
+detect_files = ["pyproject.toml", "requirements.txt", ".python-version"]
+detect_folders = []
+
+# ─── Rust ────────────────────────────────────────────────────────────────────
+[rust]
+format = "[$symbol$version]($style) "
+symbol = " "
+style = "peach"
+detect_files = ["Cargo.toml"]
+detect_folders = []
+
+# ─── Command Duration ────────────────────────────────────────────────────────
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "
+style = "yellow"
+show_milliseconds = false
+
+# ─── Disabled modules (for speed) ────────────────────────────────────────────
+[ruby]
+disabled = true
+
+[package]
+disabled = true
+
+[time]
+disabled = true
+
+# ─── Catppuccin Mocha Palette ────────────────────────────────────────────────
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
