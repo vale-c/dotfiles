@@ -52,7 +52,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 # You Should Use — reminds you of aliases you've set
 zinit ice wait lucid
-zinit light MichaelAqworthy/zsh-you-should-use
+zinit light MichaelAquilina/zsh-you-should-use
 
 # Git aliases (just the aliases, not all of oh-my-zsh)
 zinit ice wait lucid

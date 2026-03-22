@@ -30,7 +30,8 @@ ctrl_n_shortcuts = true
 stats = { enabled = true }
 
 # Theme — Catppuccin Mocha
-theme = "catppuccin-mocha"
+[theme]
+name = "catppuccin-mocha"
 
 # Sync (optional - sign up at https://atuin.sh)
 # sync_address = "https://api.atuin.sh"
