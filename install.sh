@@ -61,7 +61,7 @@ fi
 # ─── Step 3: Install dependencies ────────────────────────────────────────────
 info "Installing tools via Brewfile..."
 
-if brew bundle --file="$DOTFILES/Brewfile" 2>&1 | tail -1; then
+if brew bundle --file="$DOTFILES/Brewfile"; then
     success "All tools installed"
 else
     warn "Some brew packages may have failed — check output above"
@@ -83,6 +83,7 @@ backup "$HOME/.config/ghostty"
 backup "$HOME/.config/starship.toml"
 backup "$HOME/.zshrc"
 backup "$HOME/.gitconfig"
+backup "$HOME/.gitignore_global"
 backup "$HOME/.ripgreprc"
 backup "$HOME/.config/lazygit"
 backup "$HOME/.config/atuin"
@@ -128,6 +129,7 @@ link "$DOTFILES/zsh/zshrc"           "$HOME/.zshrc"
 
 # Git
 link "$DOTFILES/git/gitconfig"       "$HOME/.gitconfig"
+link "$DOTFILES/git/gitignore_global" "$HOME/.gitignore_global"
 link "$DOTFILES/git/ripgreprc"       "$HOME/.ripgreprc"
 
 # Lazygit
@@ -187,7 +189,7 @@ fi
 # Install mise tool versions
 if command -v mise &>/dev/null; then
     info "Installing mise tool versions (node, python)..."
-    mise install --yes 2>&1 | tail -3
+    mise install --yes
     success "mise tools installed"
 fi
 

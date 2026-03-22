@@ -7,11 +7,11 @@ set -euo pipefail
 
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
-RED='\033[0;31m'
+BLUE='\033[0;34m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-info()    { echo -e "\033[0;34m[info]${NC} $1"; }
+info()    { echo -e "${BLUE}[info]${NC} $1"; }
 success() { echo -e "${GREEN}[done]${NC} $1"; }
 warn()    { echo -e "${YELLOW}[skip]${NC} $1"; }
 
@@ -34,6 +34,7 @@ unlink_if_symlink "$HOME/.config/ghostty"
 unlink_if_symlink "$HOME/.config/starship.toml"
 unlink_if_symlink "$HOME/.zshrc"
 unlink_if_symlink "$HOME/.gitconfig"
+unlink_if_symlink "$HOME/.gitignore_global"
 unlink_if_symlink "$HOME/.ripgreprc"
 unlink_if_symlink "$HOME/.config/lazygit"
 unlink_if_symlink "$HOME/.config/atuin/config.toml"
@@ -65,6 +66,29 @@ if [[ -n "$LATEST_BACKUP" ]]; then
                     ;;
                 gitconfig)
                     cp "$file" "$HOME/.gitconfig"
+                    ;;
+                ripgreprc)
+                    cp "$file" "$HOME/.ripgreprc"
+                    ;;
+                atuin)
+                    mkdir -p "$HOME/.config/atuin"
+                    cp "$file/config.toml" "$HOME/.config/atuin/config.toml" 2>/dev/null \
+                        || cp -r "$file" "$HOME/.config/atuin"
+                    ;;
+                yazi)
+                    mkdir -p "$HOME/.config/yazi"
+                    cp "$file/theme.toml" "$HOME/.config/yazi/theme.toml" 2>/dev/null \
+                        || cp -r "$file" "$HOME/.config/yazi"
+                    ;;
+                gh)
+                    mkdir -p "$HOME/.config/gh"
+                    cp "$file/config.yml" "$HOME/.config/gh/config.yml" 2>/dev/null \
+                        || cp -r "$file" "$HOME/.config/gh"
+                    ;;
+                mise)
+                    mkdir -p "$HOME/.config/mise"
+                    cp "$file/config.toml" "$HOME/.config/mise/config.toml" 2>/dev/null \
+                        || cp -r "$file" "$HOME/.config/mise"
                     ;;
                 *)
                     warn "Don't know where to restore $local_name"
