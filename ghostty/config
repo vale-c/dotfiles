@@ -33,7 +33,7 @@ window-theme = ghostty
 macos-titlebar-style = native
 macos-option-as-alt = true
 background-opacity = 0.92
-background-blur-radius = 20
+background-blur = 20
 unfocused-split-opacity = 0.85
 
 # ─── Cursor ──────────────────────────────────────────────────────────────────
