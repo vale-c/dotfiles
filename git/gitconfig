@@ -1,0 +1,76 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Git Configuration — Catppuccin Delta Edition
+# ══════════════════════════════════════════════════════════════════════════════
+
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+	default = current
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+[core]
+	editor = nvim
+	pager = delta
+	excludesfile = ~/.gitignore_global
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status -sb
+	last = log -1 HEAD --stat
+	undo = reset HEAD~1 --mixed
+	amend = commit --amend --no-edit
+	graph = log --oneline --graph --decorate --all -20
+	branches = branch -a --sort=-committerdate
+	stale = branch -a --merged
+	contributors = shortlog -sn --no-merges
+	conflicts = diff --name-only --diff-filter=U
+
+[rerere]
+	enabled = true
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	dark = true
+	line-numbers = true
+	side-by-side = true
+	syntax-theme = "Catppuccin Mocha"
+	minus-style = "syntax #3b1d2e"
+	minus-emph-style = "syntax #5e2d40"
+	plus-style = "syntax #1d3b2e"
+	plus-emph-style = "syntax #2d5e40"
+	line-numbers-minus-style = "#f38ba8"
+	line-numbers-plus-style = "#a6e3a1"
+	line-numbers-zero-style = "#6c7086"
+	hunk-header-style = "file line-number syntax"
+	hunk-header-decoration-style = "box ul #cba6f7"

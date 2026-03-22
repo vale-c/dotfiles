@@ -1,0 +1,17 @@
+# Machine-specific git config — copy to ~/.gitconfig.local
+# This file is gitignored and sourced via [include] in gitconfig
+
+[user]
+	name = Your Name
+	email = your@email.com
+	# signingkey = YOUR_GPG_KEY
+
+# Uncomment to enable commit signing
+# [commit]
+# 	gpgsign = true
+
+# [gpg]
+# 	format = ssh
+
+# [gpg "ssh"]
+# 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

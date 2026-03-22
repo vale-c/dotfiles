@@ -1,0 +1,27 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Ripgrep Defaults
+# ══════════════════════════════════════════════════════════════════════════════
+
+--smart-case
+--hidden
+
+# Ignore common non-source directories and files
+--glob=!.git/
+--glob=!node_modules/
+--glob=!.next/
+--glob=!dist/
+--glob=!build/
+--glob=!.output/
+--glob=!.nuxt/
+--glob=!.vercel/
+--glob=!.netlify/
+--glob=!target/
+--glob=!vendor/
+--glob=!__pycache__/
+--glob=!*.min.js
+--glob=!*.min.css
+--glob=!*.map
+--glob=!package-lock.json
+--glob=!yarn.lock
+--glob=!bun.lockb
+--glob=!pnpm-lock.yaml
