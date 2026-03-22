@@ -75,7 +75,7 @@ keybind = cmd+zero=reset_font_size
 link-url = true
 
 # ─── Shader ──────────────────────────────────────────────────────────────────
-custom-shader = shaders/retro-terminal.glsl
+custom-shader = shaders/bloom.glsl
 
 # ─── Performance ─────────────────────────────────────────────────────────────
 bold-is-bright = false
