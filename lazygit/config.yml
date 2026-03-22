@@ -1,0 +1,44 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Lazygit — Catppuccin Mocha Edition
+# ══════════════════════════════════════════════════════════════════════════════
+
+gui:
+  nerdFontsVersion: "3"
+  showBottomLine: false
+  showPanelJumps: false
+  theme:
+    activeBorderColor:
+      - "#cba6f7"  # mauve
+      - bold
+    inactiveBorderColor:
+      - "#6c7086"  # overlay0
+    searchingActiveBorderColor:
+      - "#f9e2af"  # yellow
+      - bold
+    optionsTextColor:
+      - "#89b4fa"  # blue
+    selectedLineBgColor:
+      - "#313244"  # surface0
+    cherryPickedCommitBgColor:
+      - "#45475a"  # surface1
+    cherryPickedCommitFgColor:
+      - "#cba6f7"  # mauve
+    unstagedChangesColor:
+      - "#f38ba8"  # red
+    defaultFgColor:
+      - "#cdd6f4"  # text
+    selectedRangeBgColor:
+      - "#45475a"  # surface1
+  authorColors:
+    "*": "#b4befe"  # lavender
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  branchLogCmd: "git log --graph --color=always --oneline --decorate {{branchName}} --"
+
+os:
+  editPreset: "nvim"
+
+promptToReturnFromSubprocess: false

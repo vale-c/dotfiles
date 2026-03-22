@@ -1,0 +1,37 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Atuin Configuration - Smart Shell History
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Use fuzzy search for history
+search_mode = "fuzzy"
+
+# Filter mode: global (all machines), host (this machine), session, directory
+filter_mode = "global"
+
+# Show preview of full command
+show_preview = true
+
+# Inline height (0 = fullscreen)
+inline_height = 20
+
+# Style
+style = "compact"
+
+# Key binding mode (vim-style, emacs, or auto)
+keymap_mode = "auto"
+
+# Exit after selecting
+exit_mode = "return-original"
+
+# Enable ctrl-r binding
+ctrl_n_shortcuts = true
+
+# Store history stats
+stats = { enabled = true }
+
+# Theme — Catppuccin Mocha
+theme = "catppuccin-mocha"
+
+# Sync (optional - sign up at https://atuin.sh)
+# sync_address = "https://api.atuin.sh"
+# sync_frequency = "5m"
