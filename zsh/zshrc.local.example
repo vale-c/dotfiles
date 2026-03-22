@@ -1,0 +1,18 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Machine-specific overrides — copy to ~/.zshrc.local
+#  This file is gitignored. Sourced at the end of .zshrc.
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Claude Code
+# export CLAUDE_CODE_MAX_OUTPUT_TOKENS=32000
+
+# Extra PATH entries
+# export PATH="$HOME/custom/bin:$PATH"
+
+# Work-specific aliases
+# alias vpn="networksetup -connectpppoeservice 'Work VPN'"
+# alias k="kubectl"
+# alias dc="docker compose"
+
+# Override defaults
+# export EDITOR="cursor"

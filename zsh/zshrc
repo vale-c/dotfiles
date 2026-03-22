@@ -1,0 +1,346 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  ZSH Configuration — Catppuccin Mocha Terminal Powerhouse
+#  Target: <150ms startup | Memory-efficient | Modern tooling
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ─── Performance: Profiling (uncomment both lines to measure) ────────────────
+# zmodload zsh/zprof
+
+# ─── Instant Prompt: Starship (show prompt before plugins load) ──────────────
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/starship/init.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/starship/init.zsh"
+fi
+
+# ─── Core Options ────────────────────────────────────────────────────────────
+setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS PUSHD_SILENT
+setopt INTERACTIVE_COMMENTS NO_BEEP CORRECT
+setopt EXTENDED_GLOB
+
+# ─── History (optimized) ─────────────────────────────────────────────────────
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
+setopt INC_APPEND_HISTORY
+
+# ─── Zinit: Ultra-fast Plugin Manager ────────────────────────────────────────
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -d $ZINIT_HOME ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME" 2>/dev/null
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
+# ─── Plugins: Turbo Mode (deferred loading) ──────────────────────────────────
+
+# Completions (load first, needed by other plugins)
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
+
+# Autosuggestions (must load BEFORE syntax highlighting)
+zinit ice wait lucid atload'_zsh_autosuggest_start; bindkey "^ " autosuggest-accept'
+zinit light zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Syntax highlighting (must load AFTER autosuggestions)
+zinit ice wait'1' lucid atinit'zicompinit; zicdreplay'
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# You Should Use — reminds you of aliases you've set
+zinit ice wait lucid
+zinit light MichaelAqworthy/zsh-you-should-use
+
+# Git aliases (just the aliases, not all of oh-my-zsh)
+zinit ice wait lucid
+zinit snippet OMZP::git
+
+# ─── Completion System ───────────────────────────────────────────────────────
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}── %d ──%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches%f'
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.zsh/cache"
+
+# ─── Key Bindings ────────────────────────────────────────────────────────────
+bindkey -e
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+bindkey '^[[3~' delete-char
+
+# ─── Aliases: Navigation ─────────────────────────────────────────────────────
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias -- -="cd -"
+
+# ─── Aliases: Modern CLI Replacements ────────────────────────────────────────
+# eza (better ls) — Catppuccin Mocha colors
+alias ls="eza --icons --group-directories-first"
+alias l="eza --icons --group-directories-first"
+alias ll="eza -la --icons --group-directories-first --git"
+alias lt="eza --tree --level=2 --icons"
+alias llt="eza --tree --level=3 --icons -la"
+
+# bat (better cat) — Catppuccin Mocha theme
+alias cat="bat --paging=never"
+alias catp="bat --plain"
+export BAT_THEME="Catppuccin Mocha"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# ─── Aliases: Git ────────────────────────────────────────────────────────────
+alias g="git"
+alias ga="git add"
+alias gaa="git add ."
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gca="git commit --amend"
+alias gco="git checkout"
+alias gcb="git checkout -b"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gf="git fetch --all --prune"
+alias gl="git log --oneline --graph --decorate -20"
+alias gla="git log --oneline --graph --decorate --all"
+alias gp="git pull --rebase"
+alias gpsh="git push"
+alias gpshf="git push --force-with-lease"
+alias gs="git status -sb"
+alias gss="git status"
+alias gst="git stash"
+alias gstp="git stash pop"
+alias grb="git rebase"
+alias gwip="git add -A && git commit -m 'WIP [skip ci]'"
+alias lg="lazygit"
+
+# ─── Aliases: Development ────────────────────────────────────────────────────
+alias vim="nvim"
+alias v="nvim"
+alias c="code ."
+alias o="open ."
+
+# npm/yarn/bun/pnpm
+alias ni="npm install"
+alias ns="npm start"
+alias nr="npm run"
+alias nd="npm run dev"
+alias nb="npm run build"
+alias nt="npm test"
+alias yr="yarn"
+alias bi="bun install"
+alias br="bun run"
+alias bd="bun run dev"
+alias pi="pnpm install"
+alias pr="pnpm run"
+alias pd="pnpm dev"
+
+# ─── Aliases: System ─────────────────────────────────────────────────────────
+alias path='echo -e ${PATH//:/\\n}'
+alias ports="lsof -iTCP -sTCP:LISTEN -n -P"
+alias ip="curl -s https://ipinfo.io/ip"
+alias localip="ipconfig getifaddr en0"
+alias flushdns="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+alias reload="exec zsh"
+
+# ─── Functions ───────────────────────────────────────────────────────────────
+mkcd() { mkdir -p "$1" && cd "$1" }
+
+extract() {
+    [[ ! -f "$1" ]] && { echo "'$1' is not a valid file"; return 1; }
+    case "$1" in
+        *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+        *.tar.gz|*.tgz)   tar xzf "$1" ;;
+        *.tar.xz)         tar xJf "$1" ;;
+        *.tar.zst)        tar --zstd -xf "$1" ;;
+        *.bz2)            bunzip2 "$1" ;;
+        *.gz)             gunzip "$1" ;;
+        *.tar)            tar xf "$1" ;;
+        *.zip)            unzip "$1" ;;
+        *.Z)              uncompress "$1" ;;
+        *.7z)             7z x "$1" ;;
+        *.rar)            unrar x "$1" ;;
+        *.zst)            zstd -d "$1" ;;
+        *)                echo "'$1' cannot be extracted" ;;
+    esac
+}
+
+killport() {
+    [[ -z "$1" ]] && { echo "Usage: killport <port>"; return 1; }
+    lsof -ti :"$1" | xargs kill -9 2>/dev/null && echo "Killed process on port $1" || echo "No process on port $1"
+}
+
+serve() {
+    local port="${1:-8000}"
+    echo "Serving on http://localhost:$port"
+    python3 -m http.server "$port"
+}
+
+today() { git log --all --author="$(git config user.name)" --since="midnight" --oneline }
+
+# ─── Power Functions ─────────────────────────────────────────────────────────
+# Interactive git branch switcher with fzf
+gbr() {
+    git branch --sort=-committerdate --format='%(refname:short)' |
+        fzf --preview 'git log --oneline --graph --color=always {} -- | head -20' |
+        xargs git checkout
+}
+
+# Interactive git log browser — pick a commit, see the diff
+glog() {
+    git log --oneline --graph --color=always --decorate |
+        fzf --ansi --no-sort --preview 'echo {} | grep -o "[a-f0-9]\{7,\}" | head -1 | xargs git show --color=always' |
+        grep -o "[a-f0-9]\{7,\}" | head -1 | tr -d '\n' | pbcopy && echo "Commit hash copied!"
+}
+
+# Fuzzy find & open file in $EDITOR
+fe() {
+    local file
+    file=$(fd --type f --hidden --follow --exclude .git | fzf --preview 'bat --color=always --style=numbers --line-range=:300 {}')
+    [[ -n "$file" ]] && ${EDITOR:-nvim} "$file"
+}
+
+# Fuzzy cd into any subdirectory
+fcd() {
+    local dir
+    dir=$(fd --type d --hidden --follow --exclude .git | fzf --preview 'eza --tree --level=2 --icons --color=always {}')
+    [[ -n "$dir" ]] && cd "$dir"
+}
+
+# Quick project jumper — zoxide + fzf combo
+zz() {
+    local dir
+    dir=$(zoxide query -l | fzf --no-sort --preview 'eza --tree --level=2 --icons --color=always {}')
+    [[ -n "$dir" ]] && cd "$dir"
+}
+
+# Show git diff stats for the week
+week() {
+    echo "This week's work:"
+    git log --all --author="$(git config user.name)" --since="1 week ago" --format="%h %s" --no-merges
+    echo ""
+    echo "Stats:"
+    git diff --stat "$(git log --all --author="$(git config user.name)" --since="1 week ago" --format="%H" | tail -1)"..HEAD 2>/dev/null
+}
+
+# Quick note to a scratchpad
+note() {
+    local file="$HOME/.notes/$(date +%Y-%m-%d).md"
+    mkdir -p "$HOME/.notes"
+    if [[ $# -eq 0 ]]; then
+        ${EDITOR:-nvim} "$file"
+    else
+        echo "- $(date +%H:%M) $*" >> "$file"
+        echo "Noted."
+    fi
+}
+
+# Yazi — cd into directory on quit with 'y'
+y() {
+    local tmp
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [[ -n "$cwd" ]] && [[ "$cwd" != "$PWD" ]]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+# ─── FZF — Catppuccin Mocha ─────────────────────────────────────────────────
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --icons --color=always {}'"
+export FZF_DEFAULT_OPTS='
+    --height=60%
+    --layout=reverse
+    --border=rounded
+    --info=inline
+    --margin=1
+    --padding=1
+    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
+    --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+    --color=selected-bg:#45475a
+    --color=border:#6c7086,label:#cdd6f4
+    --bind=ctrl-d:half-page-down,ctrl-u:half-page-up
+    --bind=ctrl-y:accept
+    --bind=ctrl-/:toggle-preview
+'
+[[ -t 0 ]] && source <(fzf --zsh 2>/dev/null)
+
+# ─── Eza Colors — Catppuccin Mocha ───────────────────────────────────────────
+export EZA_COLORS="\
+di=1;34:\
+ln=36:\
+ex=1;32:\
+fi=0:\
+*.md=37:\
+*.json=33:\
+*.toml=33:\
+*.yml=33:\
+*.yaml=33:\
+*.ts=34:\
+*.tsx=34:\
+*.js=33:\
+*.jsx=33:\
+*.css=34:\
+*.html=38;5;208:\
+*.py=33:\
+*.rs=38;5;208:\
+*.go=36:\
+*.sh=32:\
+*.zsh=32:\
+*.lua=34:\
+*.lock=90:\
+*.log=90"
+
+# ─── Ripgrep ────────────────────────────────────────────────────────────────
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# ─── Zoxide (smart cd) ───────────────────────────────────────────────────────
+eval "$(zoxide init zsh --cmd cd)"
+
+# ─── Atuin (smart shell history with sync) ───────────────────────────────────
+if [[ $- == *i* ]] && [[ -z "$INSIDE_EMACS" ]]; then
+    eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
+# ─── Mise (universal version manager — replaces fnm, rbenv, pyenv) ───────────
+eval "$(mise activate zsh)"
+
+# ─── Bun ─────────────────────────────────────────────────────────────────────
+export BUN_INSTALL="$HOME/.bun"
+[[ -d "$BUN_INSTALL" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
+[[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
+
+# ─── Cargo/Rust ──────────────────────────────────────────────────────────────
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# ─── PATH ────────────────────────────────────────────────────────────────────
+export PATH="$HOME/.local/bin:$PATH"
+typeset -U PATH
+
+# ─── Environment ─────────────────────────────────────────────────────────────
+export EDITOR="nvim"
+export VISUAL="nvim"
+export GIT_PAGER="delta"
+
+# ─── Starship Prompt ─────────────────────────────────────────────────────────
+[[ -t 0 ]] && eval "$(starship init zsh)"
+
+# ─── Machine-specific overrides ──────────────────────────────────────────────
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+
+# ─── Profiling (uncomment with top line) ─────────────────────────────────────
+# zprof
